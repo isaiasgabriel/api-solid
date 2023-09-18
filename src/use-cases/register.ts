@@ -1,4 +1,6 @@
+import { UsersRepository } from '@/repositories/users-repository-interface'
 import { hash } from 'bcryptjs'
+import { UserAlreadyExistsError } from './error/user-already-exists-error'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -7,19 +9,16 @@ interface RegisterUseCaseRequest {
 }
 
 export class RegisterUseCase {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(private dbRepository: any) {}
+  constructor(private dbRepository: UsersRepository) {}
 
   async run({ name, email, password }: RegisterUseCaseRequest) {
     const password_hash = await hash(password, 6)
     // const prismaUserRepository = new PrismaUserRepository()
 
-    const userWithSameEmail = await this.dbRepository.emailVerification({
-      email,
-    })
+    const userWithSameEmail = await this.dbRepository.findByEmail(email)
 
     if (userWithSameEmail) {
-      throw new Error('E-mail already exists')
+      throw new UserAlreadyExistsError()
     }
 
     await this.dbRepository.create({
