@@ -11,4 +11,14 @@ export class PrismaUserRepository {
     // Wants to work with the object
     return user
   }
+
+  async emailVerification(email: Prisma.UserWhereUniqueInput) {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email.email,
+      },
+    })
+
+    return user
+  }
 }
