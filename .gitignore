@@ -6,3 +6,6 @@ build
 
 # Environment Variables
 .env
+
+# Vitest coverage
+coverage
