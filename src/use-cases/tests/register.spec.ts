@@ -1,15 +1,21 @@
-import { expect, it, describe } from 'vitest'
-import { RegisterUseCase } from './register'
+import { expect, it, describe, beforeEach } from 'vitest'
+import { RegisterUseCase } from '../register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
-import { UserAlreadyExistsError } from './errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
+import { UsersRepository } from '@/repositories/prisma/users-repository-interface'
+
+let usersRepository: UsersRepository
+let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
-  it('should be able to register', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
+  })
 
-    const { user } = await registerUseCase.run({
+  it('should be able to register', async () => {
+    const { user } = await sut.run({
       name: 'John Doe',
       email: 'johndoe@gmail.com',
       password: '123456',
@@ -19,10 +25,7 @@ describe('Register Use Case', () => {
   })
 
   it('should hash user password', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.run({
+    const { user } = await sut.run({
       name: ' John Doe',
       email: 'johndoe2@gmail.com',
       password: 'password1234',
@@ -38,10 +41,7 @@ describe('Register Use Case', () => {
   })
 
   it('should not be able to register the same email', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    await registerUseCase.run({
+    await sut.run({
       name: ' John Doe',
       email: 'johndoe2@gmail.com',
       password: 'password1234',
@@ -49,7 +49,7 @@ describe('Register Use Case', () => {
 
     // Promises -> Resolve / Reject
     expect(() =>
-      registerUseCase.run({
+      sut.run({
         name: ' John Doe',
         email: 'johndoe2@gmail.com',
         password: 'password1234',
