@@ -1,4 +1,4 @@
-import { UsersRepository } from '@/repositories/prisma/users-repository-interface'
+import { UsersRepository } from '@/repositories/users-repository-interface'
 import { describe, it, beforeEach, expect } from 'vitest'
 import { GetUserProfile } from '../get-user-profile'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'

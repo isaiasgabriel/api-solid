@@ -3,7 +3,7 @@ import { RegisterUseCase } from '../register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
-import { UsersRepository } from '@/repositories/prisma/users-repository-interface'
+import { UsersRepository } from '@/repositories/users-repository-interface'
 
 let usersRepository: UsersRepository
 let sut: RegisterUseCase
