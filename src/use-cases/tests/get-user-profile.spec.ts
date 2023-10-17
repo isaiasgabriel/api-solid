@@ -30,7 +30,7 @@ describe('Get User Profile Use Case', () => {
   })
 
   it('should not be able to get profile with wrong id', async () => {
-    expect(() => sut.run({ userId: 'false-id' })).rejects.toBeInstanceOf(
+    await expect(() => sut.run({ userId: 'false-id' })).rejects.toBeInstanceOf(
       ResourceNotFoundError,
     )
   })

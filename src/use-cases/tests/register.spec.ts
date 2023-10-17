@@ -48,7 +48,7 @@ describe('Register Use Case', () => {
     })
 
     // Promises -> Resolve / Reject
-    expect(() =>
+    await expect(() =>
       sut.run({
         name: ' John Doe',
         email: 'johndoe2@gmail.com',
