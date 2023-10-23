@@ -5,8 +5,8 @@
 - [X] Deve ser possível se cadastrar;
 - [X] Deve ser possível se autenticar;
 - [X] Deve ser possível obter o perfil de um usuário logado;
-- [] Deve ser possível realizar o número de check-ins realizados pelo usuário logado;
-- [] Deve ser possível o usuário obter o hisórico de check-ins;
+- [X] Deve ser possível contar o número de check-ins realizados pelo usuário logado;
+- [X] Deve ser possível o usuário obter o hisórico de check-ins;
 - [] Deve ser possível o usuário buscar academias próximas;
 - [] Deve ser possível o usuário buscar academias pelo nome;
 - [X] Deve ser possível o usuário realizar check-in em uma academia;
