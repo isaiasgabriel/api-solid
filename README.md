@@ -8,7 +8,7 @@
 - [X] Deve ser possível contar o número de check-ins realizados pelo usuário logado;
 - [X] Deve ser possível o usuário obter o hisórico de check-ins;
 - [] Deve ser possível o usuário buscar academias próximas;
-- [] Deve ser possível o usuário buscar academias pelo nome;
+- [X] Deve ser possível o usuário buscar academias pelo nome;
 - [X] Deve ser possível o usuário realizar check-in em uma academia;
 - [] Deve ser possível validar o check-in de um usuário;
 - [X] Deve ser possível cadastrar uma academia;
