@@ -18,8 +18,8 @@ export class PrismaUserRepository implements UsersRepository {
       data,
     })
 
-    // Return the user in case the use-case
-    // Wants to work with the object
+    // Retorna o usuário em uma situação que o caso de uso
+    // Queira trabalhar com esse objeto
     return user
   }
 
