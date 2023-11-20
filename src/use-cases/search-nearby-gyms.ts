@@ -1,4 +1,4 @@
-import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { GymsRepositoryInterface } from '@/repositories/gyms-repository-interface'
 import { Gym } from '@prisma/client'
 
 interface SearchNearbyGymsUseCaseRequest {
@@ -10,7 +10,7 @@ interface SearchNearbyGymsUseCaseResponse {
 }
 
 export class SearchNearbyGymsUseCase {
-  constructor(private gymRepository: InMemoryGymsRepository) {}
+  constructor(private gymRepository: GymsRepositoryInterface) {}
 
   async run({
     userLatitude,
