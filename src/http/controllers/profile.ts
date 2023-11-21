@@ -2,6 +2,7 @@ import { makeGetUserProfileUseCase } from '@/use-cases/factories/make-get-user-p
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
+  // await request.jwtVerify()
   // essa função vai
   // automaticamente validar o token da nossa aplicação
 
