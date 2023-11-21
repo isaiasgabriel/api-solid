@@ -26,7 +26,9 @@ export class AuthenticateUseCase {
     }
 
     // Boolean => "does","has","is"
-    const doesPasswordMatches = compare(password, user.password_hash)
+    // não esquecer desse await caso contrário a validação de senha
+    // não vai ser feita
+    const doesPasswordMatches = await compare(password, user.password_hash)
 
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError()
