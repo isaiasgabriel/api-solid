@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import 'dotenv/config'
 import { Environment } from 'vitest'
 import { PrismaClient } from '@prisma/client'
+import { execSync } from 'node:child_process'
 
 const prisma = new PrismaClient()
 
@@ -28,10 +29,12 @@ export default <Environment>{
 
     process.env.DATABASE_URL = databaseUrl
 
+    execSync('npx prisma migrate deploy')
+
     return {
       async teardown() {
         await prisma.$executeRawUnsafe(
-          `DELETE SCHEMA IF EXISTS "${schema}" CASCADE`,
+          `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
         )
         await prisma.$disconnect()
       },
