@@ -1,8 +1,16 @@
 import request from 'supertest'
 import { app } from '@/app'
-import { expect, it, test } from 'vitest'
+import { expect, beforeAll, afterAll, it, test } from 'vitest'
 
 test('Register (e2e)', () => {
+  beforeAll(async () => {
+    await app.ready()
+  })
+
+  afterAll(async () => {
+    await app.close()
+  })
+
   it('should be able to register', async () => {
     const response = await request(app.server).post('/users').send({
       name: 'john doe',

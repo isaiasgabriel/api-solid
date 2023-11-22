@@ -18,14 +18,23 @@ test('Authenticate (e2e)', () => {
       password: '123456',
     })
 
-    const response = await request(app.server).post('/sessions').send({
+    const authResponse = await request(app.server).post('/sessions').send({
       email: 'johndoe@gmail.com',
       password: '123456',
     })
 
-    expect(response.statusCode).toEqual(200)
-    expect(response.body).toEqual({
-      token: expect.any(String),
-    })
+    const { token } = authResponse.body
+
+    const profileResponse = await request(app.server)
+      .get('/me')
+      .set('Authorization', `Bearer ${token}`)
+      .send()
+
+    expect(profileResponse.statusCode).toEqual(200)
+    expect(profileResponse.statusCode).toEqual(
+      expect.objectContaining({
+        email: 'johndoe@gmail.com',
+      }),
+    )
   })
 })
