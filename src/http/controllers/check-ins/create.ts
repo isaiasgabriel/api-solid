@@ -3,9 +3,11 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
+  const createCheckInParamsSchema = z.object({
+    gymId: z.string().uuid(),
+  })
+
   const createCheckInBodySchema = z.object({
-    userId: z.string(),
-    gymId: z.string(),
     userLatitude: z.coerce.number().refine((value) => {
       return Math.abs(value) <= 90
     }),
@@ -14,17 +16,21 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  const { userId, gymId, userLatitude, userLongitude } =
-    createCheckInBodySchema.parse(request.body)
+  const { userLatitude, userLongitude } = createCheckInBodySchema.parse(
+    request.body,
+  )
+  const { gymId } = createCheckInParamsSchema.parse(request.params)
+
+  const userId = request.user.sub.toString()
 
   const createCheckInUseCase = makeCheckInUseCase()
 
-  const { checkIn } = await createCheckInUseCase.run({
+  await createCheckInUseCase.run({
     userId,
     gymId,
     userLatitude,
     userLongitude,
   })
 
-  return reply.status(201).send({ checkIn })
+  return reply.status(201).send('Check-in created')
 }
